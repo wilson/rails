@@ -16,6 +16,10 @@ module ActiveModel
         assert_same s, type.cast(s)
         assert_same s, type.deserialize(s)
       end
+
+      test "type registration" do
+        assert_instance_of Type::ImmutableString, Type.lookup(:immutable_string)
+      end
     end
   end
 end

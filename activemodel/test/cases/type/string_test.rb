@@ -32,6 +32,10 @@ module ActiveModel
         assert_not_same s, type.deserialize(s)
         assert_equal s, type.deserialize(s)
       end
+
+      test "type registration" do
+        assert_instance_of Type::String, Type.lookup(:string)
+      end
     end
   end
 end

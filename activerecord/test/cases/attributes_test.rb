@@ -263,5 +263,19 @@ module ActiveRecord
       assert_equal 1, klass.new(no_type: 1).no_type
       assert_equal "foo", klass.new(no_type: "foo").no_type
     end
+
+    test "attributes support user-registered types" do
+      Type.register(:immutable_string, ActiveModel::Type::ImmutableString)
+      klass = Class.new(OverloadedType) do
+        attribute :frozen_string, :immutable_string
+      end
+
+      model = klass.new(frozen_string: :brrr)
+      assert_equal "brrr", model.frozen_string
+
+      assert_raise RuntimeError do
+        model.frozen_string.upcase!
+      end
+    end
   end
 end

@@ -2,7 +2,7 @@ module ActiveModel
   module Type
     class ImmutableString < Value # :nodoc:
       def type
-        :string
+        :immutable_string
       end
 
       def serialize(value)
